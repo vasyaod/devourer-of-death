@@ -1,0 +1,14 @@
+body {
+  background: #20262E;
+  padding: 20px;
+  font-family: Helvetica;
+}
+
+#banner-message {
+  background: #fff;
+  border-radius: 4px;
+  padding: 20px;
+  font-size: 25px;
+  transition: all 0.2s;
+  margin: 0 auto;
+}
