@@ -1,6 +1,8 @@
 const diskTick = obj => {
-  if (!obj.isVisible && Date.now() - obj.lastCollectedTm > 30000) {
+  if (!obj.isVisible && Date.now() - obj.lastCollectedTm > 5000) {
     obj.isVisible = true
+    disk.x = disk.x =  Math.floor(Math.random() * (left - 50 + 1)) + 50;
+    return
   }
 }
 

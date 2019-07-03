@@ -1,5 +1,5 @@
 const bottom = 250
-const left = 430
+const left = 730
 
 const playerTick = obj => {
   const prev = Object.assign({}, obj)
@@ -45,10 +45,10 @@ const playerTick = obj => {
 
 const playerCollision = (obj, prev, objOpp) => {
   if (!objOpp.isDisk) {
-    if (prev.y + prev.height < objOpp.y && obj.y + obj.height >= objOpp.y && obj.scored == false) {
-      obj.scored = true
-      obj.score = obj.score + 1
-    }
+//    if (prev.y + prev.height < objOpp.y && obj.y + obj.height >= objOpp.y && obj.scored == false) {
+//      obj.scored = true
+//      obj.score = obj.score + 1
+//    }
 
     const vx = (objOpp.vx + obj.vx) / 2
     objOpp.vx = vx
@@ -61,10 +61,11 @@ const playerCollision = (obj, prev, objOpp) => {
     obj.y = prev.y
   } else if (objOpp.isDisk && objOpp.isVisible) {
     objOpp.isVisible = false
-    objOpp.lastCollectedTm   = Date.now()
-    const a = obj1 == obj ? obj2 : obj1
-    a.canJump = false
-    a.effectTm = Date.now()
+    objOpp.lastCollectedTm = Date.now()
+//    const a = obj1 == obj ? obj2 : obj1
+//    a.canJump = false
+//    a.effectTm = Date.now()
+    obj.score = obj.score + 1
   }
 }
 
