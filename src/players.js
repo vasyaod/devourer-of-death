@@ -2,69 +2,73 @@ const bottom = 250
 const left = 730
 
 const playerTick = obj => {
-  const prev = Object.assign({}, obj)
-  obj.x = obj.x + obj.vx
-  if (obj.vx > 0) {
-    obj.vx = obj.vx - 1
-  }
-  if (obj.vx < 0) {
-    obj.vx = obj.vx + 1
-  }
+  if (obj.isXMove) {
+    obj.x = obj.x + obj.vx
+    if (obj.vx > 0) {
+      obj.vx = obj.vx - 1
+    }
+    if (obj.vx < 0) {
+      obj.vx = obj.vx + 1
+    }
 
-  if (obj.x < 0 || obj.x > left) {
-    obj.vx = -obj.vx
-  }
+    if (obj.x < 0 || obj.x > left) {
+      obj.vx = -obj.vx
+    }
 
-  if (obj.x < 0) {
-    obj.x = 0
-  }
+    if (obj.x < 0) {
+      obj.x = 0
+    }
 
-  if (obj.x > left) {
-    obj.x = left
-  }
+    if (obj.x > left) {
+      obj.x = left
+    }
+    
+    obj.isXMove = false
+    obj.nonRefreshable = true
+  } else {
+    // Y changes
+    if (obj.y < bottom) {
+      obj.vy = obj.vy + 5
+      obj.y = obj.y + obj.vy
+    }
 
-  // Y changes
-  if (obj.y < bottom) {
-    obj.vy = obj.vy + 5
-    obj.y = obj.y + obj.vy
-  }
+    if (obj.y > bottom) {
+      obj.y = bottom
+    }
 
-  if (obj.y > bottom) {
-    obj.y = bottom
-  }
+    if (obj.y == bottom) {
+      obj.scored = false
+      obj.isBorder = false
+    }
 
-  if (obj.y == bottom) {
-    obj.scored = false
-    obj.isBorder = false
-  }
+    if (!obj.canJump && Date.now() - obj.effectTm > 10000) {
+      obj.canJump = true
+    }
 
-  if (!obj.canJump && Date.now() - obj.effectTm > 10000) {
-    obj.canJump = true
+    obj.isXMove = true
+    obj.nonRefreshable = false
   }
+  obj.isCollision = false
 }
 
 const playerCollision = (obj, prev, objOpp) => {
-  if (!objOpp.isDisk) {
+  obj.isCollision = true
+  if (objOpp.isPlayer) {
 //    if (prev.y + prev.height < objOpp.y && obj.y + obj.height >= objOpp.y && obj.scored == false) {
 //      obj.scored = true
 //      obj.score = obj.score + 1
 //    }
 
     const vx = (objOpp.vx + obj.vx) / 2
-    objOpp.vx = vx
+    objOpp.vx = vx * 5
     obj.vx = vx
     const vy = (objOpp.vy + obj.vy) / 2
-    objOpp.vy = vy
+    objOpp.vy = vy * 5
     obj.vy = vy
 
     obj.x = prev.x
     obj.y = prev.y
   } else if (objOpp.isDisk && objOpp.isVisible) {
-    objOpp.isVisible = false
-    objOpp.lastCollectedTm = Date.now()
-//    const a = obj1 == obj ? obj2 : obj1
-//    a.canJump = false
-//    a.effectTm = Date.now()
     obj.score = obj.score + 1
   }
 }

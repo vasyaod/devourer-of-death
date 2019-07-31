@@ -1,4 +1,12 @@
-let objs = [obj1, obj2, disk]
+let objs = [
+  obj1, 
+  obj2, 
+  createDisk("disk1"), 
+  //createDisk("disk2"),
+  createSpider()
+].map((obj, index) => {
+  return {...obj, id: index}
+})
 
 function refresh(obj) {
   obj.elem.css("left", obj.x + "px")
@@ -17,7 +25,6 @@ function refresh(obj) {
   } else {
     obj.elem.css("visibility", "hidden")
   }
-  
 }
 
 function inCollision(obj1, obj2) {
@@ -47,19 +54,23 @@ function inRectangle(x, y, obj) {
 }
 
 setInterval( () => {
-
+  const prevObjs = objs.map(obj => {return {...obj}})
   objs.forEach(obj => {
-    const prev = {...obj}
     obj.tick(obj)
     objs.forEach( objOpp => {
       if (obj != objOpp && inCollision(obj, objOpp)) {
-        obj.collision(obj, prev, objOpp)
+        obj.collision(obj, prevObjs[obj.id], objOpp, prevObjs[objOpp.id])
       }
     })
-    refresh(obj)
-  });
+  })
+  
+  objs.forEach(obj => {
+    if (obj.nonRefreshable != true) {
+      refresh(obj)
+    }
+  })
 
-}, 100);
+}, 50);
 
 $(document).keydown(function (event) {
   objs.forEach( obj => {
@@ -79,16 +90,20 @@ $(document).keydown(function (event) {
       if (event.which == obj.keys.down) {
         //   obj.y = obj.y + 50
       }
-      if (event.which == obj.keys.up && obj.canJump) {
+      
+      if (event.which == obj.keys.up  && obj.canJump ) {
+        if (obj.y == bottom  || obj.isCollision) {
+          obj.vy = -50
+        }
+
         if (obj.y == bottom) {
           obj.y = bottom - 1
-          obj.vy = -50
         }
       }
     }
   });
 
-  objs.forEach( obj => {
-    refresh(obj)
-  });
+  // objs.forEach( obj => {
+  //   refresh(obj)
+  // });
 })

@@ -37,6 +37,13 @@
               height:50px;
               position: absolute;"
       />
+      <img id="spider" src="spider.jpg" weight="50" height="50"
+        style="top:50px; 
+              left:50px; 
+              width:50px; 
+              height:50px;
+              position: absolute;"
+      />
       <img id="obj2" src="https://www.geek.com/wp-content/uploads/2017/01/grimlock.jpg" weight="50" height="50"
         style="top:0; 
                left:0; 
@@ -59,6 +66,7 @@
     <script>
       (async () => {
         await System.import('./src/players.js')
+        await System.import('./src/spider.js')
         await System.import('./src/disk.js')
         await System.import('./src/main.js')
       }) ();
