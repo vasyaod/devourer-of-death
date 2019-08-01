@@ -7,24 +7,32 @@ const diskTick = obj => {
   }
 }
 
-function createDisk(id) {
+function createDisk() {
   return {
-    id: id,
+    init: (id) => {
+      return `
+        <img id="${id}" src="0.png" weight="50" height="50"
+          style="top:10px; 
+                left:10px; 
+                width:50px; 
+                height:50px;
+                position: absolute;"
+        />
+      `
+    },
     isDisk: true,
     isVisible: true,
     tick: diskTick,
     collision: obj => {
       if (obj.isVisible) {
-        console.log(id)
         obj.isVisible = false
         obj.lastCollectedTm = Date.now()
       }
     },
-    x: left / 2 - $("#disk").width() / 2,
-    y: bottom / 2 - $("#disk").height() / 2,
-    width: $("#disk").width(),
-    height: $("#disk").height(),
+    x: left / 2 - 50 / 2,
+    y: bottom / 2 - 50 / 2,
+    width: 50,
+    height: 50,
     lastCollectedTm: 0,
-    elem: $("#disk")
   }
 }

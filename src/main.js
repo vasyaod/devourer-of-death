@@ -1,11 +1,24 @@
 let objs = [
   obj1, 
   obj2, 
-  createDisk("disk1"), 
-  //createDisk("disk2"),
+  createDisk(), 
+  createDisk(), 
+  createDisk(), 
+  createDisk(), 
   createSpider()
 ].map((obj, index) => {
-  return {...obj, id: index}
+  return {...obj, 
+    id: index
+//    elemId: "element-" + index
+  }
+})
+
+objs.forEach(obj => {
+  if (obj.init) {
+    const html = $.parseHTML(obj.init("element-" + obj.id))
+    $("#banner-message2").append(html);
+    obj.elem = $("#element-" + obj.id)
+  }
 })
 
 function refresh(obj) {
