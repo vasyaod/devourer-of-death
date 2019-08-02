@@ -58,16 +58,25 @@ const playerCollision = (obj, prev, objOpp) => {
 //      obj.scored = true
 //      obj.score = obj.score + 1
 //    }
+    if (obj.x != prev.x) {
+      const vx = (objOpp.vx + obj.vx) / 2
+      objOpp.vx = vx * 5
+      if (objOpp.vx > 40)
+        objOpp.vx = 40
 
-    const vx = (objOpp.vx + obj.vx) / 2
-    objOpp.vx = vx * 5
-    obj.vx = vx
-    const vy = (objOpp.vy + obj.vy) / 2
-    objOpp.vy = vy * 5
-    obj.vy = vy
+      obj.vx = vx
 
-    obj.x = prev.x
-    obj.y = prev.y
+      obj.x = prev.x
+    }
+
+    if (obj.y != prev.y) {
+      const vy = (objOpp.vy + obj.vy) / 2
+      objOpp.vy = vy * 5
+      obj.vy = vy
+
+      obj.y = prev.y
+    }
+
   } else if (objOpp.isDisk && objOpp.isVisible) {
     obj.score = obj.score + 1
   }

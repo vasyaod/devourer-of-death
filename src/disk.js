@@ -1,12 +1,3 @@
-const diskTick = obj => {
-  if (!obj.isVisible && Date.now() - obj.lastCollectedTm > 5000) {
-    obj.isVisible = true
-    obj.x =  Math.floor(Math.random() * (left - 50 + 1)) + 50;
-    obj.y =  Math.floor(Math.random() * (bottom - 50 + 1)) + 50;
-    return
-  }
-}
-
 function createDisk() {
   return {
     init: (id) => {
@@ -22,7 +13,14 @@ function createDisk() {
     },
     isDisk: true,
     isVisible: true,
-    tick: diskTick,
+    tick: obj => {
+      if (!obj.isVisible && Date.now() - obj.lastCollectedTm > 5000) {
+        obj.isVisible = true
+        obj.x =  Math.floor(Math.random() * (left - 50 + 1)) + 50;
+        obj.y =  Math.floor(Math.random() * (bottom - 50 + 1)) + 50;
+        return
+      }
+    },
     collision: obj => {
       if (obj.isVisible) {
         obj.isVisible = false
