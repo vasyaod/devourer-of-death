@@ -27,19 +27,22 @@ const playerTick = obj => {
     obj.nonRefreshable = true
   } else {
     // Y changes
-    if (obj.y < bottom) {
+//    if (obj.y < bottom) {
       obj.vy = obj.vy + 5
       obj.y = obj.y + obj.vy
+//    }
+    if (obj.y > 5000) {
+      obj.vy = 0
+      obj.y = 0
     }
+    // if (obj.y > bottom) {
+    //   obj.y = bottom
+    // }
 
-    if (obj.y > bottom) {
-      obj.y = bottom
-    }
-
-    if (obj.y == bottom) {
-      obj.scored = false
-      obj.isBorder = false
-    }
+    // if (obj.y == bottom) {
+    //   obj.scored = false
+    //   obj.isBorder = false
+    // }
 
     if (!obj.canJump && Date.now() - obj.effectTm > 10000) {
       obj.canJump = true
@@ -89,8 +92,8 @@ var obj1 = {
   collision: playerCollision,
   x: 0,
   y: 0,
-  width: $("#obj1").width(),
-  height: $("#obj1").height(),
+  width: 50,
+  height: 50,
   vx: 0,
   vy: 0,
   score: 0,
@@ -114,8 +117,8 @@ var obj2 = {
   collision: playerCollision,
   x: left,
   y: 0,
-  width: $("#obj2").width(),
-  height: $("#obj2").height(),
+  width: 50,
+  height: 50,
   vx: 0,
   vy: 0,
   score: 0,

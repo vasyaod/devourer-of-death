@@ -5,6 +5,23 @@ let objs = [
   createDisk(), 
   createDisk(), 
   createDisk(), 
+  createBrick(0, 300), 
+  createBrick(50, 300), 
+  createBrick(100, 300), 
+  createBrick(150, 300), 
+  createBrick(200, 300), 
+  createBrick(250, 300), 
+  createBrick(300, 300), 
+  createBrick(350, 300), 
+  createBrick(400, 300), 
+//  createBrick(450, 300), 
+//  createBrick(500, 300), 
+  createBrick(550, 300), 
+  createBrick(600, 300), 
+  createBrick(650, 300), 
+  createBrick(700, 300), 
+  createBrick(750, 300), 
+
   createSpider()
 ].map((obj, index) => {
   return {...obj, 
