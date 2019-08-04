@@ -122,7 +122,7 @@ $(document).keydown(function (event) {
       }
       
       if (event.which == obj.keys.up  && obj.canJump ) {
-        if (obj.y == bottom  || obj.isCollision) {
+        if (obj.y == bottom || obj.vy == 0 /*|| obj.isCollision*/) {
           obj.vy = -50
         }
 

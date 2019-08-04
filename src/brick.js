@@ -17,8 +17,15 @@ function createBrick(x, y) {
     },
     collision: (obj, prev, objOpp, prevOpp) => {
       objOpp.vy = 0
-      objOpp.x = prevOpp.x
-      objOpp.y = prevOpp.y
+
+      if (objOpp.x != prevOpp.x) {
+        objOpp.x = prevOpp.x
+        objOpp.vx = -prevOpp.vx
+      }
+      if (objOpp.y != prevOpp.y) {
+        objOpp.y = prevOpp.y
+      }
+//      objOpp.vy = -prevOpp.vy
     },
     x: x,
     y: y,

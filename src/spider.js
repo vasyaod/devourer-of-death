@@ -1,19 +1,35 @@
 function createSpider () {
   return {
     isVisible: true,
+    init: id => {
+      return `
+        <img id="${id}" src="spider.jpg" weight="50" height="50"
+          style="top:10px; 
+                left:10px; 
+                width:50px; 
+                height:50px;
+                position: absolute;"
+        />
+      `
+    },
     tick: obj => {
 
     },
     collision: (obj, prev, objOpp, prevOpp) => {
       objOpp.vy = 0
-      objOpp.x = prevOpp.x
-      objOpp.y = prevOpp.y
+
+      if (objOpp.x != prevOpp.x) {
+        objOpp.x = prevOpp.x
+        objOpp.vx = -prevOpp.vx
+      }
+      if (objOpp.y != prevOpp.y) {
+        objOpp.y = prevOpp.y
+        objOpp.vy = -prevOpp.vy
+      }
     },
-    x: left / 2 - $("#spider").width() / 2 + 50,
-    y: bottom / 2 - $("#spider").height() / 2 + 50,
-    width: $("#spider").width(),
-    height: $("#spider").height(),
-    lastCollectedTm: 0,
-    elem: $("#spider")
+    x: left / 2 - 50 / 2 + 50,
+    y: bottom / 2 - 50 / 2 + 50,
+    width: 50,
+    height: 50
   }
 }

@@ -4,6 +4,7 @@ const left = 730
 const playerTick = obj => {
   if (obj.isXMove) {
     obj.x = obj.x + obj.vx
+    
     if (obj.vx > 0) {
       obj.vx = obj.vx - 1
     }
@@ -11,18 +12,6 @@ const playerTick = obj => {
       obj.vx = obj.vx + 1
     }
 
-    if (obj.x < 0 || obj.x > left) {
-      obj.vx = -obj.vx
-    }
-
-    if (obj.x < 0) {
-      obj.x = 0
-    }
-
-    if (obj.x > left) {
-      obj.x = left
-    }
-    
     obj.isXMove = false
     obj.nonRefreshable = true
   } else {
