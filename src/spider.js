@@ -1,12 +1,12 @@
-function createSpider () {
+function createSpider (x, y) {
   return {
     isVisible: true,
     init: id => {
       return `
         <img id="${id}" src="spider.jpg" weight="50" height="50"
           style="top:10px; 
-                left:10px; 
-                width:50px; 
+                 left:10px; 
+                 width:50px; 
                 height:50px;
                 position: absolute;"
         />
@@ -24,11 +24,11 @@ function createSpider () {
       }
       if (objOpp.y != prevOpp.y) {
         objOpp.y = prevOpp.y
-        objOpp.vy = -prevOpp.vy
+        objOpp.vy = -prevOpp.vy * 5
       }
     },
-    x: left / 2 - 50 / 2 + 50,
-    y: bottom / 2 - 50 / 2 + 50,
+    x: x,
+    y: y,
     width: 50,
     height: 50
   }
