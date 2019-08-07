@@ -2,7 +2,7 @@
 
 const map = `
 *               *
-*          s    *
+*        p s    *
 *  **************
 *               * 
 *               *
@@ -27,14 +27,39 @@ for (var j = 0; j < mapLines.length; j++) {
       bricks.push(createBrick(i * 50, j * 50))
     }
     if(str.charAt(i) == "s") {
+      bricks.push(createSpring(i * 50, j * 50))
+    }
+    if(str.charAt(i) == "p") {
       bricks.push(createSpider(i * 50, j * 50))
     }
   }
 }
 
 let objs = [
-  obj1, 
-  obj2, 
+  createPlayer(
+    1 * 50, 
+    1 * 50, 
+    "https://i2.wp.com/kid-time.net/wp/wp-content/uploads/2018/09/kook-ready-2-robot-mystery-pack-series-1.png?w=380&ssl=1",
+    {
+      left: 65,
+      right: 68,
+      up: 87,
+      down: 40
+    },
+    $("#score1")
+  ),
+  createPlayer(
+    2 * 50, 
+    2 * 50, 
+    "https://www.geek.com/wp-content/uploads/2017/01/grimlock.jpg",
+    {
+      left: 37,
+      right: 39,
+      up: 38,
+      down: 40
+    },
+    $("#score2")
+  ),
   createDisk(), 
   createDisk(), 
   createDisk(), 

@@ -74,53 +74,42 @@ const playerCollision = (obj, prev, objOpp) => {
   }
 }
 
-var obj1 = {
-  isPlayer: true,
-  isVisible: true,
-  tick: playerTick,
-  collision: playerCollision,
-  x: 0,
-  y: 0,
-  width: 50,
-  height: 50,
-  vx: 0,
-  vy: 0,
-  score: 0,
-  canJump: true,
-  effectTm: 0,
-  elem: $("#obj1"),
-  scoreElem: $("#score1"),
-  isBorder: false,
-  keys: {
-    left: 65,
-    right: 68,
-    up: 87,
-    down: 40
-  }
-}
-
-var obj2 = {
-  isPlayer: true,
-  isVisible: true,
-  tick: playerTick,
-  collision: playerCollision,
-  x: left,
-  y: 0,
-  width: 50,
-  height: 50,
-  vx: 0,
-  vy: 0,
-  score: 0,
-  canJump: true,
-  effectTm: 0,
-  elem: $("#obj2"),
-  scoreElem: $("#score2"),
-  isBorder: false,
-  scored: false,
-  keys: {
-    left: 37,
-    right: 39,
-    up: 38,
-    down: 40
+function createPlayer(x, y, imgSrc, keys, scoreElem) {
+  return {
+    init: id => {
+      return `
+        <img id="${id}" src="${imgSrc}" weightdw="50" height="50"
+          style="top:0;
+                left:0;
+                width:50px; 
+                height:50px;
+                position: absolute;
+                border-style: solid;
+                border-width: 5px;
+                border-color: #aaff00;"/>
+      `
+    },
+    isPlayer: true,
+    isVisible: true,
+    tick: playerTick,
+    collision: playerCollision,
+    x: x,
+    y: y,
+    width: 50,
+    height: 50,
+    vx: 0,
+    vy: 0,
+    score: 0,
+    canJump: true,
+    effectTm: 0,
+    scoreElem: scoreElem, // $("#score1"),
+    isBorder: false,
+    keys: keys
+    // , {
+    //   left: 65,
+    //   right: 68,
+    //   up: 87,
+    //   down: 40
+    // }
   }
 }
