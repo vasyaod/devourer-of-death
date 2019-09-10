@@ -1,85 +1,110 @@
 
 
-const map = `
+const map1 = `
 *               *
-*        p s    *
+*        p p s  *
 *  **************
 *               * 
 *               *
 ***********  ****
 *               *
-*                 
+*                p 
 *****  **********   s
 *
-*                s
+*             e  s
 **********  ******
 *                    *****              ******
 *                            ***  *****
 ssssssssssssssssssssssssssssss
-
 `
-var bricks = []
-const mapLines = map.split("\n")
-for (var j = 0; j < mapLines.length; j++) {
-  const str = mapLines[j]
-  for (var i = 0; i < str.length; i++) {
-    if(str.charAt(i) == "*") {
-      bricks.push(createBrick(i * 50, j * 50))
-    }
-    if(str.charAt(i) == "s") {
-      bricks.push(createSpring(i * 50, j * 50))
-    }
-    if(str.charAt(i) == "p") {
-      bricks.push(createSpider(i * 50, j * 50))
+
+const map2 = `
+
+
+
+
+
+        *     *
+        *     *
+        *      *    
+        *      *
+        *       *
+*******************************
+`
+
+let objs = []
+
+function initMap(map) {
+  var bricks = []
+  const mapLines = map.split("\n")
+  for (var j = 0; j < mapLines.length; j++) {
+    const str = mapLines[j]
+    for (var i = 0; i < str.length; i++) {
+      if(str.charAt(i) == "*") {
+        bricks.push(createBrick(i * 50, j * 50))
+      }
+      if(str.charAt(i) == "s") {
+        bricks.push(createSpring(i * 50, j * 50))
+      }
+      if(str.charAt(i) == "p") {
+        bricks.push(createSpider(i * 50, j * 50))
+      }
+      if(str.charAt(i) == "e") {
+        bricks.push(createExit(i * 50, j * 50))
+      }
     }
   }
-}
 
-let objs = [
-  createPlayer(
-    1 * 50, 
-    1 * 50, 
-    "https://i2.wp.com/kid-time.net/wp/wp-content/uploads/2018/09/kook-ready-2-robot-mystery-pack-series-1.png?w=380&ssl=1",
-    {
-      left: 65,
-      right: 68,
-      up: 87,
-      down: 40
-    },
-    $("#score1")
-  ),
-  createPlayer(
-    2 * 50, 
-    2 * 50, 
-    "https://www.geek.com/wp-content/uploads/2017/01/grimlock.jpg",
-    {
-      left: 37,
-      right: 39,
-      up: 38,
-      down: 40
-    },
-    $("#score2")
-  ),
-  createDisk(), 
-  createDisk(), 
-  createDisk(), 
-  createDisk()
-]
+  objs = [
+    createPlayer(
+      1 * 50, 
+      1 * 50, 
+      "https://i2.wp.com/kid-time.net/wp/wp-content/uploads/2018/09/kook-ready-2-robot-mystery-pack-series-1.png?w=380&ssl=1",
+      {
+        left: 65,
+        right: 68,
+        up: 87,
+        down: 40
+      },
+      $("#score1")
+    ),
+    createPlayer(
+      2 * 50, 
+      2 * 50, 
+      "https://www.geek.com/wp-content/uploads/2017/01/grimlock.jpg",
+      {
+        left: 37,
+        right: 39,
+        up: 38,
+        down: 40
+      },
+      $("#score2")
+    ),
+    createDisk(), 
+    createDisk(), 
+    createDisk(), 
+    createDisk()
+  ]
   .concat(bricks)
   .map((obj, index) => {
-  return {...obj, 
-    id: index
-//    elemId: "element-" + index
-  }
-})
+    return {...obj, 
+      id: index
+  //    elemId: "element-" + index
+    }
+  })
 
-objs.forEach(obj => {
-  if (obj.init) {
-    const html = $.parseHTML(obj.init("element-" + obj.id))
-    $("#banner-message2").append(html);
-    obj.elem = $("#element-" + obj.id)
-  }
-})
+  $("#banner-message2").empty()
+  objs.forEach(obj => {
+    if (obj.init) {
+      const html = $.parseHTML(obj.init("element-" + obj.id))
+      $("#banner-message2").append(html);
+      obj.elem = $("#element-" + obj.id)
+    }
+  })
+}
+
+initMap(map2)
+
 
 function refresh(obj) {
   obj.elem.css("left", obj.x + "px")
@@ -87,7 +112,7 @@ function refresh(obj) {
   
   if (obj.scoreElem)
     obj.scoreElem.text(obj.score)
-  
+
   if (obj.isBorder)
     obj.elem.css("border-width", "5px")
   else
@@ -131,7 +156,7 @@ setInterval( () => {
   objs.forEach(obj => {
     obj.tick(obj)
     objs.forEach( objOpp => {
-      if (obj != objOpp && inCollision(obj, objOpp)) {
+      if (obj != objOpp && inCollision(obj, objOpp) && !obj.doNotColider && !objOpp.doNotColider) {
         obj.collision(obj, prevObjs[obj.id], objOpp, prevObjs[objOpp.id])
       }
     })
