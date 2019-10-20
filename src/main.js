@@ -2,34 +2,53 @@
 
 const map1 = `
 *               *
-*        p p s  *
+*            s  *
 *  **************
 *               * 
 *               *
-***********  ****
+*** *******  ****
 *               *
-*                p 
-*****  **********   s
+*                  
+*****  **********    
 *
-*             e  s
+*             e  m  
 **********  ******
 *                    *****              ******
 *                            ***  *****
-ssssssssssssssssssssssssssssss
+                              
 `
 
 const map2 = `
-
-
-
-
-
-        *     *
-        *     *
-        *      *    
-        *      *
-        *       *
+                                           
+                                           
+                                           
+        s                                  
+       ****    ****                        
+                                           
+                                           
+        *m    *                            
+        *     *                            
+        *      *                           
+    s   *      *                           
+        *       *       e                  
 *******************************
+`
+
+const map3 = `
+                                           
+                                           
+                                           
+                                           
+    m m m m m m                           
+                                           
+  ***************    ********              
+                                           
+                                           
+   ************     ********               
+                                           
+s          e                               
+*******************************
+                            
 `
 
 let objs = []
@@ -52,10 +71,13 @@ function initMap(map) {
       if(str.charAt(i) == "e") {
         bricks.push(createExit(i * 50, j * 50))
       }
+      if(str.charAt(i) == "m") {
+        bricks.push(createMonster(i * 50, j * 50))
+      }
     }
   }
 
-  objs = [
+  _objs = [
     createPlayer(
       1 * 50, 
       1 * 50, 
@@ -64,7 +86,8 @@ function initMap(map) {
         left: 65,
         right: 68,
         up: 87,
-        down: 40
+        down: 40,
+        action1: 70,
       },
       $("#score1")
     ),
@@ -76,7 +99,8 @@ function initMap(map) {
         left: 37,
         right: 39,
         up: 38,
-        down: 40
+        down: 40,
+        action1: 45,
       },
       $("#score2")
     ),
@@ -94,17 +118,35 @@ function initMap(map) {
   })
 
   $("#banner-message2").empty()
-  objs.forEach(obj => {
-    if (obj.init) {
-      const html = $.parseHTML(obj.init("element-" + obj.id))
-      $("#banner-message2").append(html);
-      obj.elem = $("#element-" + obj.id)
-    }
+  objs = []
+  _objs.forEach(obj => {
+    addObjectToMap(obj)
   })
 }
 
-initMap(map2)
+function addObjectToMap(obj) {
+  if (obj.init) {
+    const html = $.parseHTML(obj.init("element-" + obj.id))
+    $("#banner-message2").append(html);
+    obj.elem = $("#element-" + obj.id)
+  }
 
+  objs.push(obj)
+}
+
+var currentMap = 2
+const maps = [map1, map2, map3]
+
+function changeMap() {
+  currentMap++
+  if (currentMap >= maps.length) {
+    currentMap = 0
+  }
+  
+  initMap(maps[currentMap])
+}
+
+initMap(maps[currentMap])
 
 function refresh(obj) {
   obj.elem.css("left", obj.x + "px")
@@ -126,16 +168,16 @@ function refresh(obj) {
 }
 
 function inCollision(obj1, obj2) {
-  if (inRectangle(obj1.x, obj1.y, obj2)) {
+  if (inRectangle(obj1.x +1 , obj1.y + 1, obj2)) {
     return true;
   }
-  if (inRectangle(obj1.x + obj1.width, obj1.y, obj2)) {
+  if (inRectangle(obj1.x + obj1.width - 1, obj1.y + 1, obj2)) {
     return true;
   }
-  if (inRectangle(obj1.x, obj1.y + obj1.height, obj2)) {
+  if (inRectangle(obj1.x + 1, obj1.y + obj1.height - 1, obj2)) {
     return true;
   }
-  if (inRectangle(obj1.x + obj1.width, obj1.y + obj1.height, obj2)) {
+  if (inRectangle(obj1.x + obj1.width - 1, obj1.y + obj1.height - 1, obj2)) {
     return true;
   }
   return false;
@@ -171,6 +213,7 @@ setInterval( () => {
 }, 50);
 
 $(document).keydown(function (event) {
+//  console.log(">", event.which)
   objs.forEach( obj => {
     if (obj.isPlayer) {
       if (event.which == obj.keys.right) {
@@ -197,6 +240,10 @@ $(document).keydown(function (event) {
         if (obj.y == bottom) {
           obj.y = bottom - 1
         }
+      }
+
+      if (event.which == obj.keys.action1) {
+        addObjectToMap(createBomb(obj.x, obj.y))
       }
     }
   });

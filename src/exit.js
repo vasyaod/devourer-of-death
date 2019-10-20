@@ -16,7 +16,10 @@ function createExit(x, y) {
 
     },
     collision: (obj, prev, objOpp, prevOpp) => {
-//       objOpp.vy = 0
+      if (objOpp.isPlayer) {
+        changeMap()
+      }
+      //       objOpp.vy = 0
 
 //       if (objOpp.x != prevOpp.x) {
 //         objOpp.x = prevOpp.x

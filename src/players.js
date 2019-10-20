@@ -78,7 +78,7 @@ function createPlayer(x, y, imgSrc, keys, scoreElem) {
   return {
     init: id => {
       return `
-        <img id="${id}" src="${imgSrc}" weightdw="50" height="50"
+        <img id="${id}" src="${imgSrc}" width="50" height="50"
           style="top:0;
                 left:0;
                 width:50px; 

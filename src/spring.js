@@ -24,7 +24,7 @@ function createSpring (x, y) {
       }
       if (objOpp.y != prevOpp.y) {
         objOpp.y = prevOpp.y
-        objOpp.vy = -prevOpp.vy * 5
+        objOpp.vy = -prevOpp.vy * 2
       }
     },
     x: x,
