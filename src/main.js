@@ -2,18 +2,18 @@
 
 const map1 = `
 *               *
-*            s  *
+*       
 *  **************
-*               * 
+*       ***        * 
+*        *       *
+******* ********  ****
 *               *
-*** *******  ****
-*               *
-*                  
+*           *       
 *****  **********    
 *
 *             e  m  
-**********  ******
-*                    *****              ******
+**********  *******
+*                    *****         p  p   *****p
 *                            ***  *****
                               
 `
@@ -40,19 +40,19 @@ const map3 = `
                                            
                                            
     m m m m m m                           
-                                           
-  ***************    ********              
+                          p 00             
+  ***************    *******             
                                            
                                            
    ************     ********               
-                                           
-s          e                               
+        *                                   
+        *   e                               
 *******************************
                             
 `
 
 let objs = []
-
+let indexs = 0
 function initMap(map) {
   var bricks = []
   const mapLines = map.split("\n")
@@ -81,7 +81,7 @@ function initMap(map) {
     createPlayer(
       1 * 50, 
       1 * 50, 
-      "https://i2.wp.com/kid-time.net/wp/wp-content/uploads/2018/09/kook-ready-2-robot-mystery-pack-series-1.png?w=380&ssl=1",
+      "./robot-small.png",
       {
         left: 65,
         right: 68,
@@ -94,7 +94,7 @@ function initMap(map) {
     createPlayer(
       2 * 50, 
       2 * 50, 
-      "https://www.geek.com/wp-content/uploads/2017/01/grimlock.jpg",
+      "./dragon-small.png",
       {
         left: 37,
         right: 39,
@@ -126,9 +126,10 @@ function initMap(map) {
 
 function addObjectToMap(obj) {
   if (obj.init) {
-    const html = $.parseHTML(obj.init("element-" + obj.id))
+    indexs = indexs + 1;
+    const html = $.parseHTML(obj.init("element-" + obj.id + "-" + indexs))
     $("#banner-message2").append(html);
-    obj.elem = $("#element-" + obj.id)
+    obj.elem = $("#element-" + obj.id + "-" + indexs)
   }
 
   objs.push(obj)
@@ -242,7 +243,8 @@ $(document).keydown(function (event) {
         }
       }
 
-      if (event.which == obj.keys.action1) {
+      if (event.which == obj.keys.action1 && obj.score > 0) {
+        obj.score = obj.score - 1
         addObjectToMap(createBomb(obj.x, obj.y))
       }
     }

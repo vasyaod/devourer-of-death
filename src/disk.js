@@ -1,5 +1,5 @@
 function createDisk() {
-  return {
+  return { ... {},
     init: (id) => {
       return `
         <img id="${id}" src="0.png" weight="50" height="50"

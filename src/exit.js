@@ -1,5 +1,5 @@
 function createExit(x, y) {
-  return {
+  return { ... {},
     isVisible: true,
     init: id => {
       return `

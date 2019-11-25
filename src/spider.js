@@ -3,7 +3,7 @@ function getRandomArbitrary(min, max) {
 }
 
 function createSpider (x, y) {
-  return {
+  return { ... {},
     isVisible: true,
     init: id => {
       return `

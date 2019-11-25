@@ -1,10 +1,10 @@
 function createBomb (x, y) {
-  return {
+  return { ... {},
     isVisible: true,
     countdown: 50,
     init: id => {
       return `
-        <img id="${id}" src="spring.jpg" weight="50" height="50"
+        <img id="${id}" src="bomb.jpg" weight="50" height="50"
           style="top:10px; 
                  left:10px; 
                  width:50px; 

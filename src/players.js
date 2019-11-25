@@ -100,6 +100,7 @@ function createPlayer(x, y, imgSrc, keys, scoreElem) {
     vx: 0,
     vy: 0,
     score: 0,
+    bombs: 0,
     canJump: true,
     effectTm: 0,
     scoreElem: scoreElem, // $("#score1"),
