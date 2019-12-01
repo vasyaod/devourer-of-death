@@ -42,7 +42,7 @@ function initMap(map) {
     createPlayer(
       2 * 50, 
       2 * 50, 
-      "./packman-50.png",
+      "./dragon-2-50.png",
       {
         left: 37,
         right: 39,
