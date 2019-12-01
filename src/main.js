@@ -1,56 +1,3 @@
-
-
-const map1 = `
-*               *
-*       
-*  **************
-*       ***        * 
-*        *       *
-******* ********  ****
-*               *
-*           *       
-*****  **********    
-*
-*             e  m  
-**********  *******
-*                    *****         p  p   *****p
-*                            ***  *****
-                              
-`
-
-const map2 = `
-                                           
-                                           
-                                           
-        s                                  
-       ****    ****                        
-                                           
-                                           
-        *m    *                            
-        *     *                            
-        *      *                           
-    s   *      *                           
-        *       *       e                  
-*******************************
-`
-
-const map3 = `
-                                           
-                                           
-                                           
-                                           
-    m m m m m m                           
-                          p 00             
-  ***************    *******             
-                                           
-                                           
-   ************     ********               
-        *                                   
-        *   e                               
-*******************************
-                            
-`
-
 let objs = []
 let indexs = 0
 function initMap(map) {
@@ -88,19 +35,21 @@ function initMap(map) {
         up: 87,
         down: 40,
         action1: 70,
+        action2: 71,
       },
       $("#score1")
     ),
     createPlayer(
       2 * 50, 
       2 * 50, 
-      "./dragon-small.png",
+      "./packman-50.png",
       {
         left: 37,
         right: 39,
         up: 38,
         down: 40,
         action1: 45,
+        action2: 46,
       },
       $("#score2")
     ),
@@ -133,10 +82,10 @@ function addObjectToMap(obj) {
   }
 
   objs.push(obj)
+  return obj
 }
 
 var currentMap = 2
-const maps = [map1, map2, map3]
 
 function changeMap() {
   currentMap++
@@ -214,7 +163,7 @@ setInterval( () => {
 }, 50);
 
 $(document).keydown(function (event) {
-//  console.log(">", event.which)
+  console.log(">", event.which)
   objs.forEach( obj => {
     if (obj.isPlayer) {
       if (event.which == obj.keys.right) {
@@ -245,7 +194,15 @@ $(document).keydown(function (event) {
 
       if (event.which == obj.keys.action1 && obj.score > 0) {
         obj.score = obj.score - 1
-        addObjectToMap(createBomb(obj.x, obj.y))
+        addObjectToMap(createTimerBomb(obj.x, obj.y))
+      }
+
+      if (event.which == obj.keys.action2 && obj.remoteBomb) {
+        obj.remoteBomb.destroy(obj.remoteBomb)
+        obj.remoteBomb = null
+      } else if (event.which == obj.keys.action2 && obj.score > 0) {
+        obj.score = obj.score - 1
+        obj.remoteBomb = addObjectToMap(createRemoteBomb(obj.x, obj.y))
       }
     }
   });

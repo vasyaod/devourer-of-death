@@ -30,6 +30,7 @@
     </div>
     <script>
       (async () => {
+        await System.import('./src/maps.js')
         await System.import('./src/players.js')
         await System.import('./src/spider.js')
         await System.import('./src/disk.js')
@@ -37,7 +38,8 @@
         await System.import('./src/spring.js')
         await System.import('./src/exit.js')
         await System.import('./src/monster.js')
-        await System.import('./src/bomb.js')
+        await System.import('./src/timer-bomb.js')
+        await System.import('./src/remote-bomb.js')
         await System.import('./src/main.js')
       }) ();
     </script>
