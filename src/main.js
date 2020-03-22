@@ -21,6 +21,9 @@ function initMap(map) {
       if(str.charAt(i) == "m") {
         bricks.push(createMonster(i * 50, j * 50))
       }
+      if(str.charAt(i) == "t") {
+        bricks.push(createStone(i * 50, j * 50))
+      }
     }
   }
 
@@ -163,7 +166,7 @@ setInterval( () => {
 }, 50);
 
 $(document).keydown(function (event) {
-  console.log(">", event.which)
+//  console.log(">", event.which)
   objs.forEach( obj => {
     if (obj.isPlayer) {
       if (event.which == obj.keys.right) {

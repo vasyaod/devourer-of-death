@@ -45,7 +45,10 @@ const playerTick = obj => {
 
 const playerCollision = (obj, prev, objOpp) => {
   obj.isCollision = true
-  if (objOpp.isPlayer) {
+//  if (objOpp.isStone) {
+//    console.log("Stone")
+//  }
+  if (objOpp.isPlayer || objOpp.isStone) {
 //    if (prev.y + prev.height < objOpp.y && obj.y + obj.height >= objOpp.y && obj.scored == false) {
 //      obj.scored = true
 //      obj.score = obj.score + 1
@@ -93,6 +96,14 @@ function createPlayer(x, y, imgSrc, keys, scoreElem) {
     isVisible: true,
     tick: playerTick,
     collision: playerCollision,
+    bombDestroy: (obj, bomb) => {
+      const t = (Math.abs(obj.x - bomb.x) + Math.abs((obj.y - bomb.y)))
+      obj.vx = (obj.x - bomb.x) / t * 100
+      obj.vy = (obj.y - bomb.y) / t * 100
+
+//      obj.isVisible = false
+//      obj.doNotColider = true
+    },
     x: x,
     y: y,
     width: 50,

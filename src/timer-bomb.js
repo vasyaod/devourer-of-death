@@ -44,11 +44,13 @@ function createTimerBomb (x, y) {
           obj.countdown = obj.countdown - 1
           objs.forEach(mapObj => {
             if (mapObj.x > obj.x - 150 && mapObj.x < obj.x + 150 &&
-                mapObj.y > obj.y - 150 && mapObj.y < obj.y + 150) {
-              mapObj.isVisible = false
-              mapObj.doNotColider = true
+                mapObj.y > obj.y - 150 && mapObj.y < obj.y + 150 &&
+                mapObj.bombDestroy) {
+              mapObj.bombDestroy(mapObj, obj)
             }
           })
+          obj.isVisible = false
+          obj.doNotColider = true
 
           obj.elem[0].querySelector("#frame1").style.visibility = "hidden"
           obj.elem[0].querySelector("#frame2").style.visibility = "hidden"

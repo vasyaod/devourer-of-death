@@ -7,7 +7,7 @@ function createSpider (x, y) {
     isVisible: true,
     init: id => {
       return `
-        <img id="${id}" src="spider.jpg" weight="50" height="50"
+        <img id="${id}" src="zombi-pig-50.png" weight="50" height="50"
           style="top:10px;
                  left:10px;
                  width:50px;

@@ -3,7 +3,7 @@ function createBrick(x, y) {
     isVisible: true,
     init: id => {
       return `
-        <img id="${id}" src="brick.jpg" weight="50" height="50"
+        <img id="${id}" src="brick-50.png" weight="50" height="50"
           style="top:10px; 
                 left:10px; 
                 width:50px; 
@@ -14,6 +14,10 @@ function createBrick(x, y) {
     },
     tick: obj => {
 
+    },
+    bombDestroy: (obj, bomb) => {
+      obj.isVisible = false
+      obj.doNotColider = true
     },
     collision: (obj, prev, objOpp, prevOpp) => {
       objOpp.vy = 0
